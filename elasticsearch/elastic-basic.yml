@@ -1,0 +1,41 @@
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+  namespace: elastic-stack
+spec:
+  version: 8.10.2
+  nodeSets:
+  - name: master
+    count: 3
+    config:
+      node.store.allow_mmap: false
+      http.max_content_length: 300mb
+    podTemplate:
+      metadata:
+        creationTimestamp: null
+      spec:
+          containers:
+          - name: elasticsearch
+            env:
+            - name: ES_JAVA_OPTS
+              value: -Xms2g -Xmx2g
+            resources:
+             requests:
+               memory: 4Gi
+             limits:
+               memory: 4Gi
+          nodeSelector:
+            name: stack-elk 
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi
+        storageClassName: oci
+

@@ -1,0 +1,42 @@
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  name: apm-server
+  namespace: elastic-stack
+spec:
+  secureSettings:
+  - secretName: elasticsearch-es-elastic-user
+  config:
+    output:
+      elasticsearch:
+        hosts: ["elasticsearch-es-http.elastic-stack:9200"]
+        index: "apm-%{+yyyy.MM.dd}"
+        username: elastic
+        password: "${elastic}"
+        protocol: "https"
+        ssl.certificate_authorities: ["/mnt/elastic-internal/http-certs/ca.crt"]
+        ssl.verification_mode: none
+    spec:
+      containers:
+      - name: apm-server
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "512Mim"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+      nodeSelector:
+        name: stack-elk
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch
+  http:
+    service:
+      metadata: {}
+      spec: {}
+    tls:
+      certificate: {}
+  kibanaRef:
+    name: kibana
+  version: 8.10.2
