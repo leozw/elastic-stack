@@ -1,3 +1,14 @@
+## **Guia de Observability com ELK Stack**
+
+O ELK Stack é uma combinação de três produtos open-source da Elastic: Elasticsearch, Logstash e Kibana. No contexto do Kubernetes, frequentemente incluímos também o Filebeat para coleta de logs. Juntos, eles oferecem uma solução poderosa para log e análise de dados.
+
+- **Elasticsearch**: Um mecanismo de pesquisa e análise distribuído em tempo real. Ele armazena e indexa os logs, tornando-os pesquisáveis.
+- **Logstash**: É uma ferramenta de processamento de dados que aceita entradas de várias fontes, transforma os dados e os envia para o Elasticsearch (ou outros destinos).
+- **Kibana**: Fornece uma interface de usuário para visualizar, pesquisar e interagir com dados armazenados no Elasticsearch.
+- **Filebeat**: Coleta logs dos contêineres em cada nó do Kubernetes e os envia para o Elasticsearch ou Logstash. É leve e opera no lado do cliente, coletando logs e enviando-os para centralizar soluções de armazenamento de log.
+
+No nosso guia, vamos configurar o Filebeat para enviar logs diretamente para o Elasticsearch, sem a necessidade do Logstash.
+
 ### **Pré-requisitos:**
 
 - Ter o **`kubectl`** instalado.
