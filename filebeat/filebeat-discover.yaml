@@ -56,31 +56,27 @@ spec:
   type: filebeat
   version: 8.10.2
   config:
-    filebeat:
-        autodiscover:
-          providers:
-          - type: kubernetes
-            node: ${NODE_NAME}
-            hints:
-              enabled: true
-              default_config:
-                type: container
-                paths:
-                - /var/log/containers/*${data.kubernetes.container.id}.log
-            # templates:
-            #   - condition:
-            #       equals:
-            #         kubernetes.namespace: "elastic-stack"
-    processors:
-    - add_cloud_metadata: {}
-    - add_host_metadata: {}                     
+    filebeat.autodiscover.providers:
+    - node: ${NODE_NAME}
+      type: kubernetes
+      hints.default_config.enabled: "false"
+      templates:
+      - condition.equals.kubernetes.namespace: ingress-nginx
+        config:
+        - paths: ["/var/log/containers/*${data.kubernetes.container.id}.log"]
+          type: container
+      - condition.equals.kubernetes.namespace: default
+        config:
+        - paths: ["/var/log/containers/*${data.kubernetes.container.id}.log"]
+          type: container 
+                            
     output.elasticsearch:
       hosts: ['${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
       username: ${ELASTICSEARCH_USERNAME}
       password: ${ELASTICSEARCH_PASSWORD}
       ssl.certificate_authorities:
         - /etc/certificate/ca.crt
-      index: "elk-cluster-%{+yyyy.MM.dd}"
+      index: "elk-cluster"
     setup.template.name: "elk-cluster"
     setup.template.pattern: "elk-cluster"
     setup.template.overwrite: true
@@ -102,7 +98,7 @@ spec:
           resources:
             limits:
               cpu: 100m
-              memory: 500Mi
+              memory: 2000Mi
             requests:
               cpu: 25m
               memory: 500Mi
