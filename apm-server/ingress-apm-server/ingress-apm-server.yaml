@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
 spec:
   rules:
-  - host: apm-server.dispara.ai
+  - host: dns.apm-server
     http:
       paths:
       - pathType: Prefix
