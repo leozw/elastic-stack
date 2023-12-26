@@ -26,8 +26,9 @@ spec:
                memory: 4Gi
              limits:
                memory: 4Gi
-          nodeSelector:
-            name: stack-elk 
+# Optional/best pratice
+#          nodeSelector:
+#            name: stack-elk 
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data 
