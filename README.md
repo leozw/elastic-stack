@@ -16,6 +16,8 @@ No nosso guia, vamos configurar o Filebeat para enviar logs diretamente para o E
 
 **🚀 Configuração**
 
+*Para instalção completa, pular para o passo 6.
+
 ### **1. Instalando o ECK Operator:**
 
 Para instalar o ECK Operator, que facilitará a implantação e gestão dos produtos Elastic no Kubernetes, execute os comandos a seguir:
@@ -54,7 +56,13 @@ O Filebeat coleta logs diretamente dos contêineres em cada nó do Kubernetes e 
 ```bash
 kubectl apply -f filebeat/filebeat_elastic.yml -n elastic-stack
 ```
+### **6 (Opcional). Instalação completa via Kustomize:**
 
+O Filebeat coleta logs diretamente dos contêineres em cada nó do Kubernetes e os envia para o Elasticsearch. Assim, você garante que os logs sejam centralizados e prontos para análise.
+
+```bash
+kubectl apply -k .
+```
 ### **🎉 Conclusão:**
 
 Com os passos acima, você terá configurado a stack ELK no seu cluster Kubernetes. Esta combinação de ferramentas proporcionará uma poderosa capacidade de monitoramento, permitindo-lhe pesquisar, visualizar e analisar seus logs em tempo real. Lembre-se de verificar regularmente por atualizações para manter sua stack atualizada e segura.
