@@ -38,7 +38,7 @@ kubectl create ns elastic-stack
 Ao instalar o Elasticsearch, você terá um mecanismo de busca distribuído que armazena e indexa logs, tornando-os facilmente pesquisáveis e analisáveis.
 
 ```bash
-kubectl apply -f elasticsearch/elastic-basic.yml -n elastic-stack
+kubectl apply -f elasticsearch/elastic-basic.yaml -n elastic-stack
 ```
 
 ### **4. Instalação do Kibana:**
@@ -46,7 +46,7 @@ kubectl apply -f elasticsearch/elastic-basic.yml -n elastic-stack
 Com o Kibana, você terá uma interface gráfica intuitiva para visualizar, pesquisar e interagir com os logs armazenados no Elasticsearch.
 
 ```bash
-kubectl apply -f kibana/kibana.yml -n elastic-stack
+kubectl apply -f kibana/kibana.yaml -n elastic-stack
 ```
 
 ### **5. Instalação do Filebeat:**
@@ -54,7 +54,7 @@ kubectl apply -f kibana/kibana.yml -n elastic-stack
 O Filebeat coleta logs diretamente dos contêineres em cada nó do Kubernetes e os envia para o Elasticsearch. Assim, você garante que os logs sejam centralizados e prontos para análise.
 
 ```bash
-kubectl apply -f filebeat/filebeat_elastic.yml -n elastic-stack
+kubectl apply -f filebeat/filebeat_elastic.yaml -n elastic-stack
 ```
 ### **6 (Opcional). Instalação completa via Kustomize:**
 
