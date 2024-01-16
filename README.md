@@ -16,7 +16,7 @@ No nosso guia, vamos configurar o Filebeat para enviar logs diretamente para o E
 
 **🚀 Configuração**
 
-*Para instalção completa, pular para o passo 6.
+#### **Para instalção completa, pular para o passo 6.**
 
 ### **1. Instalando o ECK Operator:**
 
